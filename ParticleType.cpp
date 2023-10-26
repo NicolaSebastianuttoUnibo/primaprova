@@ -1,4 +1,4 @@
-#include "particleType.hpp"
+#include "ParticleType.hpp"
 #include <iostream>
 char* ParticleType::GetName(){
 return fName;
