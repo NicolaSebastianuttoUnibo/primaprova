@@ -1,21 +1,20 @@
 #ifndef RESONANCETYPE_HPP
 #define SRESONANCETYPE_HPP
 
-
-#include "ParticleType.hpp";
 #include "iostream";
+#include "ParticleType.hpp";
 
 class ResonanceType : public ParticleType
 {
-
-    double const fWidth;
-
- public:
+public:
   ResonanceType(char*, double const, int const, double const);
   
   double getfWidth() const;
   void Print();
- 
+
+  private:
+    double const fWidth;
+
 };
 
 #endif
