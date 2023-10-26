@@ -1,13 +1,9 @@
+
 #include "ResonanceType.hpp";
-ResonanceType::class ResonanceType : public ParticleType
-{
 
-
-  ResonanceType(char* fName, double const fMass, int const fCharge, double const fWidth) : fName(name), fMass(Mass), fCharge(Charge), fWidth(Width) ;
+  ResonanceType::ResonanceType(char* name, double const mass, int const charge, double const Width) : ParticleType( name, mass, charge), fWidth(Width) {}
   
-  double getfWidth() const { return fWidth; }
+  double ResonanceType::getfWidth() const { return fWidth; }
   
-  void Print() {Print();
+  void ResonanceType::Print() {Print();
   std::cout << "width: " << fWidth <<'/n';}
- 
-};
