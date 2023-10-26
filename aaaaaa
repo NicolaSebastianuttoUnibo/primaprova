@@ -1,0 +1,42 @@
+#ifndef PARTICLETYPE_HPP
+#define PARTICLETYPE_HPP
+
+class ParticleType{
+private:
+
+char* fName;
+const double fMass;
+const int fCharge;
+public:
+
+char* GetName();
+double GetMass();
+int GetCharge();
+void Print();
+
+ParticleType(char* name, double mass, int charge);
+
+};
+
+#endif
+
+#include "particleType.hpp"
+#include <iostream>
+char* ParticleType::GetName(){
+return fName;
+}
+
+double ParticleType::GetMass(){
+return fMass;
+}
+
+int ParticleType::GetCharge(){
+return fCharge;
+}
+
+void ParticleType::Print(){
+std::cout<<"Name: "<<fName<<"\nfMass: "<<fMass<<"\nCharge: "<<fCharge;
+}
+
+ParticleType::ParticleType(char* name, double mass, int charge): fName(name), fMass(mass),fCharge(charge) {}
+
