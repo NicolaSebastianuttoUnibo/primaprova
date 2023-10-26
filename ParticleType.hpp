@@ -2,8 +2,8 @@
 #define PARTICLETYPE_HPP
 
 class ParticleType{
-private:
 
+private: 
 char* fName;
 const double fMass;
 const int fCharge;
@@ -19,4 +19,3 @@ ParticleType(char* name, double mass, int charge);
 };
 
 #endif
-
