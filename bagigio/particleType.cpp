@@ -1,4 +1,4 @@
-#include "particleType.hpp"
+#include "ParticleType.hpp"
 #include <iostream>
  const char* ParticleType::GetName(){
     return fName;
@@ -25,4 +25,3 @@ ParticleType::ParticleType(const char* name): fName(name), fMass(0),fCharge(0) {
   bool ParticleType::operator==(const ParticleType& pt)           const   {
   return true;
 }
-
