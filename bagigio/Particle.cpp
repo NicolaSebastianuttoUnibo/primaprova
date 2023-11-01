@@ -54,6 +54,65 @@ void Particle::PrintParticle(){
 }
 
 
+ int Particle::GetfIndex(){return fIndex;}
+
+ /*static*/ void Particle::AddParticleType (const char* name, const double Mass, const int charge ){
+    ParticleType* a=&fParticleType[fIndex];
+    if (fNParticleType!=10 || findParticle(a)!=-1)
+    { ParticleType npart(name, Mass, charge );
+    fParticleType.push_back(npart);
+    }
+}
+
+int Particle::SetfIndex() {
+    std::cout << "fIndex:";
+std::cin>> fIndex;
+std::cout << '\n';
+
+
+}
+
+
+double Particle::GetPx(){
+  return fPx;
+}
+double Particle::GetPy(){
+  return fPy;
+}
+double Particle::GetPz(){
+  return fPz;
+}
+
+double Particle::GetMassParticle() const{
+    ParticleType a=fParticleType[fIndex];
+  return a.GetMass();
+}
+
+double Particle::GetImpulse(){
+  double P=std::sqrt(fPx*fPx+fPy*fPy+fPz*fPz);
+  return P;
+}
+
+double Particle::GetEnergy() const{
+    Particle a=*this;
+  double E=std::sqrt((a.GetMassParticle())*(a.GetMassParticle())+(a.GetImpulse())*(a.GetImpulse()));
+  return E;
+}
+
+double Particle::InvMass(Particle &p)
+{
+  double Minv=std::pow( std::sqrt(this->GetEnergy()+p.GetEnergy())*(this->GetEnergy()+p.GetEnergy())-(std::sqrt(this->GetPx()+p.GetPx())*(std::sqrt(this->GetPx()+p.GetPx())+std::sqrt(this->GetPy()+p.GetPy())*std::sqrt(this->GetPy()+p.GetPy()) + std::sqrt(this->GetPz()+p.GetPz())*std::sqrt(this->GetPz()+p.GetPz()))),2);
+    return Minv;
+}
+
+void Particle::SetP(double Px, double Py, double Pz)
+{
+  fPx=Px;
+  fPy=Py;
+  fPz=Pz;
+}
+
+
 
 
 
