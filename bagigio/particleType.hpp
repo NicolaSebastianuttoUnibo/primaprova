@@ -12,7 +12,7 @@ public:
 const char* GetName();
 const double GetMass();
 const int GetCharge();
-void Print();
+virtual void Print();
 
 ParticleType(const char* name,const  double mass, const int charge);
 ParticleType(const char* name);
@@ -23,3 +23,17 @@ ParticleType(const char* name);
 
 
 #endif
+
+
+/*
+
+static void AddParticleType (const char* name, const double Mass, const int charge );
+static void AddParticleType (const char* name, const double Mass, const int charge ){
+    if (fNParticleType!=10 || FindParticle()!=-1)
+    { ParticleType npart(name, Mass, charge );
+    fParticleType.pushback(npart);
+    }
+}
+
+
+*/
