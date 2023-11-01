@@ -5,6 +5,5 @@
   
   const double ResonanceType::getfWidth() const { return fWidth; }
   
-  void ResonanceType::Print() {Print();
-  std::cout << "width: " << fWidth <<'/n';}
-
+  void ResonanceType::Print() {ParticleType::Print();
+  std::cout << "\nwidth: " << fWidth <<'\n';}
