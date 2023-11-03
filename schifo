@@ -1,0 +1,23 @@
+void Particle::AddParticleType (const char* name, const double mass, const int charge, const double width ){
+   if(width==0)
+   {
+    ParticleType rt (name, mass, charge);
+
+
+    if (fParticleType.size()<=fMaxNumParticleType  findParticle(&rt)!=-1)
+    { 
+    fParticleType.push_back(&rt);
+    } }
+    else{
+      ResonanceType rt (name, mass, charge, width);
+
+
+    if (fParticleType.size()<=fMaxNumParticleType  findParticle(&rt)!=-1)
+    { 
+    fParticleType.push_back(&rt);
+    } 
+    }
+}
+Particle::AddParticleType( "risonanza",4,5,6);
+Particle::AddParticleType( "protone -",4,5,0);
+Particle::PrintAll();
