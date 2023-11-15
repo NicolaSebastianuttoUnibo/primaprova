@@ -1,14 +1,13 @@
 #include "Particle.hpp"
-#include <iostream>
-#include <cmath>
-#include <cstdlib>
+
 
  std::vector<ParticleType*> Particle::fParticleType;
+ std::vector<ParticleType*>* Particle::lochifo=&fParticleType;
 int Particle::findParticle(ParticleType* rt){
 
 int index{-1};
 
-     for ( auto it= fParticleType.begin(); it<fParticleType.end();++it) {
+     for ( auto it= (fParticleType).begin(); it<fParticleType.end();++it) {
 
 
 if(*(&rt)==*it){index=std::distance(fParticleType.begin(),it);}
@@ -25,9 +24,9 @@ return index;
 Particle::Particle(const char* name, double px, double py, double pz): fPx{px},fPy{py},fPz{pz}{
 
 
-    ParticleType a=ParticleType(name,0.,0);
+    /* ParticleType a=ParticleType(name,0.,0);
    fIndex=findParticle(&a);
-   if(fIndex<0){std::cout<<"Particella non trovata";}
+   if(fIndex<0){std::cout<<"Particella non trovata";} */
 
 }
 /*Particle::Particle(const char* name): fPx{0},fPy{0},fPz{0}{
@@ -48,13 +47,17 @@ void Particle::Setter(int index){
     fIndex=index;
 }
 
-void Particle::PrintAll(){
-    for(unsigned int i=0;i<fParticleType.size();i++){
-        std::cout<<(i+1)<<"a particella:\n";
-        (*fParticleType[i]).Print();
-        std::cout<<"\n";
-    }
-}
+ void Particle::PrintAll(){
+  std::cout<< "\n"<< fParticleType.size()<<"\n";
+    for( unsigned int i=0;i<fParticleType.size();i++){
+        
+        if(fParticleType[i]!=nullptr){
+          std::cout<<(i+1)<<"a particella:\n";
+         
+        fParticleType[i]->Print();
+        std::cout<<"\n";}
+    } 
+} 
 void Particle::PrintParticle(){
     std::cout<<"index: "<<fIndex<<"\n"<<"Name: "<< (*(fParticleType[fIndex])).GetName()<<"\nPx: "<<fPy<<"\nPy: "<<fPz<<"\nPz: "<<fPx<<"\n";
 
@@ -65,13 +68,25 @@ void Particle::PrintParticle(){
  int Particle::GetfIndex(){return fIndex;}
  
 
-void Particle::AddParticleType (ResonanceType rt ){
+void Particle::AddParticleType (const char* name, const double mass, const int charge, const double width ){
+   if(width==0)
+   {
+    ParticleType* rt=new  ParticleType (name, mass, charge);
    
    
-    if (fParticleType.size()<=fMaxNumParticleType || findParticle(&rt)!=-1)
+    if (fParticleType.size()<=fMaxNumParticleType || findParticle(rt)!=-1)
     { 
-    fParticleType.push_back(&rt);
+    fParticleType.push_back(rt);
+    } }
+    else{
+      ResonanceType* rt=new ResonanceType (name, mass, charge, width);
+   
+   
+    if (fParticleType.size()<=fMaxNumParticleType || findParticle(rt)!=-1)
+    { 
+    fParticleType.push_back(rt);
     } 
+    }
 }
 
 void  Particle::SetfIndex(int index) {
