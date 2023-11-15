@@ -5,6 +5,9 @@
 #include "ResonanceType.hpp"
 #include <array>
 #include <vector>
+#include <iostream>
+#include <cmath>
+#include <cstdlib>
 
 
 
@@ -17,7 +20,7 @@ static const int fMaxNumParticleType{10};
 
  static std::vector<ParticleType*> fParticleType;
 
-
+static std::vector<ParticleType*>* lochifo;
 
 
 
@@ -30,17 +33,24 @@ double fPz;
 void Boost(double bx, double by, double bz);
 
 public: 
+
+std::vector<ParticleType*>   pfs(){ 
+   
+    return *lochifo;
+}
+
 Particle(const char* name, double px=0, double py=0, double pz=0);
-//Particle(const char* name);
+Particle() = default;
 
  void Setter(const int index);
 void Setter(const char* name);
 
-void PrintAll();
+ static void PrintAll();
+ static void o(ParticleType s) { s.Print();}
 void PrintParticle();
 
 int GetfIndex();
- static void AddParticleType (ResonanceType);
+ static void AddParticleType (const char* name, const double mass, const int charge, const double width );
 void SetfIndex(int);
 
 double GetPx();
