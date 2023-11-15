@@ -39,6 +39,7 @@ Particle EventParticles[120];
   
  for (int i=0;i<1e5;i++)
 {
+  int count=0;
     for(i=0;i<100; i++) // qlz: sicuramente darà problemi
     {
      double x=gRandom->Rndm();
@@ -69,7 +70,39 @@ Particle EventParticles[120];
     }
     else 
     {
-     p.SetfIndex(7);   
+     double x=gRandom->Rndm();
+      if(x<0.5)
+      {
+         Particle* a= new Particle("pione +",1,1,1);
+        Particle* b=new Particle("kaone -",1,1,1);
+        a->Setter("pione +");
+        b->Setter("kaone -");
+        //int z=p.Decay2body(*a, *b);
+        if(i==0)
+        {
+           /*EventParticles[100+count]=a;
+           EventParticles[101+count]=b;
+             count+=2;*/
+        }
+      
+      }
+
+      /*else{
+        Particle a("pione -",1,1,1);
+        Particle b("kaone +",1,1,1);
+        a.Setter("pione -");
+        b.Setter("kaone +");
+        int z=p.Decay2body(a, b);
+        if(z==0)
+        {
+           EventParticles[100+count]=a;
+           EventParticles[101+count]=b;
+             count+=2;
+        
+
+      }
+     p.SetfIndex(7);  
+    }*/
     }
       
      
