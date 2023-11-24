@@ -1,30 +1,53 @@
 #include "Particle.hpp"
 
 void mmm(){
+
+TH1F *h1 = new TH1F("tipi di particelle",”Title”, nBins, xlow, xhigh);
+
+TH1F *h2 = new TH1F("distribuzioni angoli azimutali e polari",”Title”, nBins, xlow, xhigh);
+
+TH1F *h3 = new TH1F("distribuzione dell'impulso, impulso trasverso, energia ",”Title”, nBins, xlow, xhigh);
+
+TH1F *h4 = new TH1F("invariante di massa evento per evento",”Title”, nBins, xlow, xhigh);
+
 gRandom->SetSeed();
+
 
 Particle pt("ci",5,5,5);
 
 
-ParticleType pip("pione +",4,5);
-ParticleType pim("pione -",4,5);
-ParticleType kap("kaone +",4,5);
-ParticleType kam("kaone -",4,5);
-ParticleType prp("protone +",4,5);
-ParticleType prm("protone -",4,5);
+ParticleType pip("pione+",4,5);
+ParticleType pim("pione-",4,5);
+ParticleType kap("kaone-",4,5);
+ParticleType kam("kaone-",4,5);
+ParticleType prp("protone+",4,5);
+ParticleType prm("protone-",4,5);
 ResonanceType r1("risonanza",4,5,6);
 ResonanceType r2("risonanza34234",466666,5,6);
 
 
-  pt.AddParticleType("risonanza",4,5,6);
-pt.PrintAll();  
+  /*pt.AddParticleType("risonanza",4,5,6);
+pt.PrintAll();  */
 
+Particle::AddParticleType( "pione+",4,5,6);
+
+int n=Particle::fParticleType.size();
+std::cout<<n<<"\n";
+
+Particle::AddParticleType( "pione-",4,5,0);
+Particle::AddParticleType( "kaone+",4,5,0);
+Particle::AddParticleType( "kaone-",4,5,0);
+n=Particle::fParticleType.size();
+std::cout<<n<<"\n";
+Particle::AddParticleType( "kaone-",4,5,0);
+//if(kap==kam){std::cout<<"uguali";}
+Particle::AddParticleType( "protone+",4,5,6);
+Particle::AddParticleType( "protone-",4,5,6);
 Particle::AddParticleType( "risonanza",4,5,6);
-Particle::AddParticleType( "protone -",4,5,0);
-Particle::AddParticleType( "protone -",4,5,0);
-Particle::AddParticleType( "protone -",4,5,0);
-Particle::AddParticleType( "risonanza",4,5,6);
-Particle::PrintAll(); 
+n=Particle::fParticleType.size();
+std::cout<<n<<"\n";
+
+//Particle::PrintAll(); 
 /* r1.Print();
 prm.Print(); */
 /*std::vector<ParticleType*> gigio=p.pfs();;
@@ -37,61 +60,79 @@ gigio[1]->Print();*/
 Particle EventParticles[120];
  
   
- for (int i=0;i<1e5;i++)
+ for (int i=0;i<5;i++)
 {
   int count=0;
-    for(i=0;i<100; i++) // qlz: sicuramente darà problemi
+    for(int j=0;j<100; j++) // qlz: sicuramente darà problemi
     {
-     double x=gRandom->Rndm();
+      
+    double x=gRandom->Rndm();
      Particle p("gg",0,0,0);
-
     if(x<0.4)
     {p.SetfIndex(1);
+    //std::cout<< x;
+    h1->Fill(1);
     }
     else if(x<0.8)
     {
      p.SetfIndex(2);   
+    // std::cout<< x;
+    h1->Fill(2);
     }
     else if(x<0.85)
     {
-     p.SetfIndex(3);   
+     p.SetfIndex(3);  
+     //std::cout<< x; 
+     h1->Fill(3);
     }
     else if(x<0.9)
     {
-     p.SetfIndex(4);   
+     p.SetfIndex(4); 
+    // std::cout<< x;  
+    h1->Fill(4);
     }
     else if(x<0.945)
     {
      p.SetfIndex(5);   
+     //std::cout<< x;
+     h1->Fill(5);
     }
     else if(x<0.99)
     {
-     p.SetfIndex(6);   
+     p.SetfIndex(6); 
+     //std::cout<< x;
+     h1->Fill(6);  
     }
     else 
     {
-     double x=gRandom->Rndm();
-      if(x<0.5)
+      
+      //std::cout<< x;
+     double y=gRandom->Rndm();
+      if(y<0.5)
       {
-         Particle* a= new Particle("pione +",1,1,1);
-        Particle* b=new Particle("kaone -",1,1,1);
-        a->Setter("pione +");
-        b->Setter("kaone -");
-        //int z=p.Decay2body(*a, *b);
+         Particle* a= new Particle("pione+",1,1,1);
+        Particle* b=new Particle("kaone-",1,1,1);
+        //b->findParticle("")
+       // a->Setter("pione+");
+        b->Setter("kaone-");
+        std::cout<<"index b:"<<b->fIndex<<",";
+       int c=a->GetMassParticle();
+       std::cout<< c;
+        int z=p.Decay2body(*a, *b);
         if(i==0)
         {
-           /*EventParticles[100+count]=a;
-           EventParticles[101+count]=b;
-             count+=2;*/
+           EventParticles[100+count]=*a;
+           EventParticles[101+count]=*b;
+             count+=2;
         }
       
       }
 
-      /*else{
-        Particle a("pione -",1,1,1);
-        Particle b("kaone +",1,1,1);
-        a.Setter("pione -");
-        b.Setter("kaone +");
+      else{
+        Particle a("pione-",1,1,1);
+        Particle b("kaone+",1,1,1);
+        a.Setter("pione-");
+        b.Setter("kaone+");
         int z=p.Decay2body(a, b);
         if(z==0)
         {
@@ -102,7 +143,8 @@ Particle EventParticles[120];
 
       }
      p.SetfIndex(7);  
-    }*/
+     h1->Fill(7);
+    }
     }
       
      
@@ -111,7 +153,7 @@ double phi=gRandom->Uniform(0,2*3.14);
 double theta=gRandom->Uniform(0,3.14);
 double impulse=gRandom->Exp(1e9);
 p.SetP(impulse*sin(theta)*cos(phi),impulse*sin(theta)*sin(phi),impulse*cos(theta));
-    }
+   }
 } 
 
 
@@ -127,5 +169,4 @@ p.SetP(impulse*sin(theta)*cos(phi),impulse*sin(theta)*sin(phi),impulse*cos(theta
 std::cout <<"\n er brother";
 
 
-std::cout<<"\ncifuyguygao\n";
 }
