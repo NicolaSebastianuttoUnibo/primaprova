@@ -18,22 +18,23 @@ static const int fMaxNumParticleType{10};
 
 
 
- static std::vector<ParticleType*> fParticleType;
+
 
 static std::vector<ParticleType*>* lochifo;
 
 
 
 static int fNParticleType;
- int fIndex=10;
+ 
 double fPx;
 double fPy;
 double fPz;
 
 void Boost(double bx, double by, double bz);
 
-public: 
-
+public:
+int fIndex=10; 
+ static std::vector<ParticleType*> fParticleType;
 std::vector<ParticleType*>   pfs(){ 
    
     return *lochifo;
