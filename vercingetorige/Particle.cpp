@@ -6,14 +6,18 @@
 int Particle::findParticle(ParticleType* rt){
 
 int index{-1};
-
-     for ( auto it= (fParticleType).begin(); it<fParticleType.end();++it) {
-
-
-if(*(&rt)==*it){index=std::distance(fParticleType.begin(),it);}
-
+  ParticleType d("kaone-",4,5);
+  ParticleType r("kaone-",4,5);
+  ParticleType f=*rt;
+  int i=0;
+     for ( auto const& it : (fParticleType)) {
+i++;
+//std::cout<<"entrato\n";
+if(f==*it){index=i; std::cout<<"index for:"<< index<<"trovato";}
+  
     } 
-     
+    
+     std::cout<<"index for2:"<< index<<"\n";
 return index;
 
 
@@ -39,13 +43,21 @@ for(auto it=istParticleType.begin(); it<istParticleType.end();it++){
 }*/
 
 void Particle::Setter(const char* name){
-    ParticleType a=ParticleType(name,0,0);
+  //const char* names="kaone-";
+    ParticleType* a=new ParticleType(name,0,0);
 
-    fIndex=findParticle(&a);
+    fIndex=findParticle(a);
+   //int aa=findParticle(a);
+   
+   std::cout<<"SETTERindex strano"<<fIndex;
+    std::cout<<"findex coso:"<<fIndex<<"finesset";
 }
-void Particle::Setter(int index){
+
+//
+/*void Particle::Setter(int index){
     fIndex=index;
-}
+}*/
+//
 
  void Particle::PrintAll(){
   std::cout<< "\n"<< fParticleType.size()<<"\n";
@@ -74,7 +86,7 @@ void Particle::AddParticleType (const char* name, const double mass, const int c
     ParticleType* rt=new  ParticleType (name, mass, charge);
    
    
-    if (fParticleType.size()<=fMaxNumParticleType || findParticle(rt)!=-1)
+    if (fParticleType.size()<=fMaxNumParticleType && findParticle(rt)==-1)
     { 
     fParticleType.push_back(rt);
     } }
@@ -82,7 +94,7 @@ void Particle::AddParticleType (const char* name, const double mass, const int c
       ResonanceType* rt=new ResonanceType (name, mass, charge, width);
    
    
-    if (fParticleType.size()<=fMaxNumParticleType || findParticle(rt)!=-1)
+    if (fParticleType.size()<=fMaxNumParticleType && findParticle(rt)==-1)
     { 
     fParticleType.push_back(rt);
     } 
@@ -107,8 +119,8 @@ double Particle::GetPz(){
 }
 
 double Particle::GetMassParticle() const{
-    ParticleType a=*fParticleType[fIndex];
-  return a.GetMass();
+    
+  return fParticleType[fIndex]->GetMass();
 }
 
 double Particle::GetImpulse(){
@@ -164,7 +176,8 @@ int Particle::Decay2body(Particle &dau1,Particle &dau2) const {
     w = sqrt( (-2.0 * log( w ) ) / w );
     y1 = x1 * w;
 
-    massMot += fParticleType[fIndex]->GetWidth() * y1;
+    //std::cout <<fIndex;
+    massMot += 2;//fParticleType[fIndex]->GetWidth() * y1;
 
   }
 
@@ -193,6 +206,8 @@ int Particle::Decay2body(Particle &dau1,Particle &dau2) const {
 
   return 0;
 }
+
+
 void Particle::Boost(double bx, double by, double bz)
 {
 
