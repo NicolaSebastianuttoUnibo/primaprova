@@ -1,14 +1,16 @@
 #include "Particle.hpp"
+#include <TH1F.h>
+#include <TCanvas.h>
+
 
 void mmm(){
 
-TH1F *h1 = new TH1F("tipi di particelle",”Title”, nBins, xlow, xhigh);
 
-TH1F *h2 = new TH1F("distribuzioni angoli azimutali e polari",”Title”, nBins, xlow, xhigh);
+// TH1F *h2 = new TH1F("distribuzioni angoli azimutali e polari",”Title”, nBins, xlow, xhigh);
 
-TH1F *h3 = new TH1F("distribuzione dell'impulso, impulso trasverso, energia ",”Title”, nBins, xlow, xhigh);
+// TH1F *h3 = new TH1F("distribuzione dell'impulso, impulso trasverso, energia ",”Title”, nBins, xlow, xhigh);
 
-TH1F *h4 = new TH1F("invariante di massa evento per evento",”Title”, nBins, xlow, xhigh);
+// TH1F *h4 = new TH1F("invariante di massa evento per evento",”Title”, nBins, xlow, xhigh);
 
 gRandom->SetSeed();
 
@@ -57,6 +59,9 @@ gigio[0]->Print();
 gigio[1]->Print();*/
 //p.PrintParticle(); 
 //Particle::o(pip);
+ TH1F *h1 = new TH1F("tipi di particelle","Title", Particle::fParticleType.size(), 0, Particle::fParticleType.size());
+
+
 Particle EventParticles[120];
  
   
@@ -71,37 +76,37 @@ Particle EventParticles[120];
     if(x<0.4)
     {p.SetfIndex(1);
     //std::cout<< x;
-    h1->Fill(1);
+    h1->Fill(0);
     }
     else if(x<0.8)
     {
      p.SetfIndex(2);   
     // std::cout<< x;
-    h1->Fill(2);
+    h1->Fill(1);
     }
     else if(x<0.85)
     {
      p.SetfIndex(3);  
      //std::cout<< x; 
-     h1->Fill(3);
+     h1->Fill(2);
     }
     else if(x<0.9)
     {
      p.SetfIndex(4); 
     // std::cout<< x;  
-    h1->Fill(4);
+    h1->Fill(3);
     }
     else if(x<0.945)
     {
      p.SetfIndex(5);   
      //std::cout<< x;
-     h1->Fill(5);
+     h1->Fill(4);
     }
     else if(x<0.99)
     {
      p.SetfIndex(6); 
      //std::cout<< x;
-     h1->Fill(6);  
+     h1->Fill(5);  
     }
     else 
     {
@@ -126,6 +131,9 @@ Particle EventParticles[120];
              count+=2;
         }
       
+
+     h1->Fill(6);
+
       }
 
       else{
@@ -143,8 +151,11 @@ Particle EventParticles[120];
 
       }
      p.SetfIndex(7);  
-     h1->Fill(7);
     }
+
+
+     h1->Fill(7);
+
     }
       
      
@@ -167,6 +178,10 @@ p.SetP(impulse*sin(theta)*cos(phi),impulse*sin(theta)*sin(phi),impulse*cos(theta
 
 
 std::cout <<"\n er brother";
+
+TCanvas*canvas=new TCanvas("canvas","Canvas",800,500);
+h1->Draw();
+canvas->Draw();
 
 
 }
