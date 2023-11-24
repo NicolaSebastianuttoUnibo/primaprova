@@ -24,6 +24,7 @@ ParticleType::ParticleType(const char* name, const double mass, const int charge
 */
 
   bool ParticleType::operator==(const ParticleType& pt)  const   {
+    //std::cout<<pt.GetName()<<fName<<"\n";
   return fName==pt.GetName();
 }
 
